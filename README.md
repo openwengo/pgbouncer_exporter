@@ -1,18 +1,46 @@
+[![Go Report Card](https://goreportcard.com/badge/kubedb.dev/pgbouncer_exporter)](https://goreportcard.com/report/kubedb.dev/pgbouncer_exporter)
+[![Build Status](https://github.com/kubedb/pgbouncer_exporter/workflows/CI/badge.svg)](https://github.com/kubedb/pgbouncer_exporter/actions?workflow=CI)
+[![codecov](https://codecov.io/gh/kubedb/pgbouncer_exporter/branch/master/graph/badge.svg)](https://codecov.io/gh/kubedb/pgbouncer_exporter)
+[![Slack](http://slack.kubernetes.io/badge.svg)](http://slack.kubernetes.io/#kubedb)
+[![mailing list](https://img.shields.io/badge/mailing_list-join-blue.svg)](https://groups.google.com/forum/#!forum/kubedb)
+[![Twitter](https://img.shields.io/twitter/follow/kubedb.svg?style=social&logo=twitter&label=Follow)](https://twitter.com/intent/follow?screen_name=kubedb)
+
 # PgBouncer exporter
 
 Prometheus exporter for PgBouncer.
-Exports metrics at `9127/metrics`
+Exports metrics at `localhost:9127/metrics`
 
 ## Building and running
-
-    make
-    ./pgbouncer_exporter <flags>
-
+Build the binary
+```
+$make
+```
+Export PgBouncer admin password using environment variable
+```
+$export PGPASSWORD=kubedb123
+```
+Run the binary
+```
+$./pgbouncer_exporter <flags>
+```
+Available configuration flags:
+```shell
+- pgBouncer.connectionString: Connection string for accessing pgBouncer. The default is "postgres://postgres:@localhost:6543/pgbouncer?sslmode=disable". Connection string Can also be set using environment variable DATA_SOURCE_NAME.
+- version: Print version information.
+- web.listen-address: Address on which to expose metrics and web interface. (default ":9127")
+- web.telemetry-path: Path under which to expose metrics. (default "/metrics")
+```
 To see all available configuration flags:
 
     ./pgbouncer_exporter -h
+Setting password and connection string is the minimum requirement to collect stats from a specific PgBouncer server.
 
+##Docker Image
+Build an image of the exporter:
 
+```shell
+$make docker
+```
 ## Metrics
 
 Metric | Description
