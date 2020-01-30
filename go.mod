@@ -1,4 +1,4 @@
-module kubedb.dev/pgbouncer_exporter
+module github.com/openwengo/pgbouncer_exporter
 
 go 1.12
 
